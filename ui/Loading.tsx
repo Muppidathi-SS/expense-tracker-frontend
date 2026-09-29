@@ -14,7 +14,7 @@ export default function Loading() {
             Setting up your secure local expense ledger and offline database.
             Please hold on...
           </p>
-          <div className="py-3">
+          <div className="py-3 mt-10">
             <RingLoader />
           </div>
         </div>

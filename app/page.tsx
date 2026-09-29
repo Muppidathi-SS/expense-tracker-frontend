@@ -57,7 +57,7 @@ export default function Home() {
           {step === "loading" && <Loading />}
 
           {step === "success" && (
-            <SuccessProfile onContinue={() => router.push("/dashboard")} />
+            <SuccessProfile onContinue={() => router.push("/profile")} />
           )}
         </motion.div>
       </AnimatePresence>
