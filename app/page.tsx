@@ -21,7 +21,7 @@ export default function Home() {
     setStep("loading");
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/guests`,
+        `${process.env.NEXT_API_URL}/guests`,
         {
           method: "POST",
           headers: {
