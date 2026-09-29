@@ -1,12 +1,27 @@
 import { Icons } from "@/icons/icon";
 import LogoIcon from "@/icons/svgIcons/Logo";
 import SuccessIcon from "@/icons/svgIcons/SuccessIcon";
+import { useState } from "react";
 
 type SuccessProfileProps = {
+  id: string;
   onContinue: () => void;
 };
 
-export default function SuccessProfile({ onContinue }: SuccessProfileProps) {
+export default function SuccessProfile({
+  id,
+  onContinue,
+}: SuccessProfileProps) {
+  const [copyButtonLabel, setCopyButtonLabel] = useState<string>("Copy ID");
+  
+  const handleCopyId = async () => {
+    setCopyButtonLabel("Copied");
+    await navigator.clipboard.writeText(id);
+    setTimeout(() => {
+      setCopyButtonLabel("Copy ID");
+    }, 1000);
+  };
+
   return (
     <>
       <section className="flex min-h-screen items-center justify-center bg-[#EEF2F7] px-4 py-6 sm:px-6">
@@ -23,11 +38,18 @@ export default function SuccessProfile({ onContinue }: SuccessProfileProps) {
           <div className="mt-4 w-full rounded-md border border-[#C1C6D6] bg-[#F4F3F7] p-2 sm:p-3">
             <div className="flex flex-col items-stretch gap-3 rounded-md bg-white p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
               <p className="min-w-0 break-all text-sm font-semibold text-gray-800 sm:text-base md:text-lg">
-                89a616f5-5b76-424d-b21b-6437e10674d8
+                {id || "NOT"}
               </p>
-              <button className="flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 sm:text-base">
-                <Icons.CopyIcon />
-                Copy ID
+              <button
+                onClick={handleCopyId}
+                className="flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 sm:text-base"
+              >
+                {copyButtonLabel === "Copied" ? (
+                  <Icons.CheckedIcon />
+                ) : (
+                  <Icons.CopyIcon />
+                )}
+                {copyButtonLabel}
               </button>
             </div>
           </div>
