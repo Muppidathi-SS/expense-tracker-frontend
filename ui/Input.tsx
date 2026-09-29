@@ -1,15 +1,21 @@
 type InputFieldProps = {
   type: string;
+  name?: string;
+  value?: string;
   placeholder: string;
   labelName?: string;
   required: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function Input({
   type,
+  name,
+  value,
   placeholder,
   labelName,
   required,
+  onChange,
 }: InputFieldProps) {
   return (
     <>
@@ -26,6 +32,9 @@ export default function Input({
         <div className="w-full rounded-xl border border-gray-300 px-4 py-2.5 shadow-sm mt-3">
           <input
             type={type}
+            name={name}
+            value={value}
+            onChange={onChange}
             placeholder={placeholder}
             className="w-full text-[18px] outline-none focus:outline-none"
           />

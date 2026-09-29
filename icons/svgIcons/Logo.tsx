@@ -10,7 +10,7 @@ const LogoIcon = ({ width, height, size, className }: LogoIconProps) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width ?? size ?? 674}
-      height={height ?? (size ? "auto" : 241)}
+      height={height ?? (size ? undefined : 241)}
       viewBox="0 0 674 241"
       role="img"
       aria-label="Expense Tracker"

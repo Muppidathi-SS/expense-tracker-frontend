@@ -12,15 +12,40 @@ import SuccessProfile from "@/components/guest-pofile-form/SuccessProfile";
 type Step = "welcome" | "profile" | "loading" | "success";
 
 export default function Home() {
+  const [guestId, setGuestID] = useState("");
+  const [guestName, setGuestName] = useState("");
   const [step, setStep] = useState<Step>("welcome");
   const router = useRouter();
 
-  const handleProfileSubmit = async () => {
+  const handleProfileSubmit = async (guestName: string) => {
     setStep("loading");
+    try {
+      const response = await fetch("http://localhost:5000/api/guests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: guestName }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to create guest");
+      }
+      console.log("Guest created:", data);
+      setGuestID(data.data.id);
+      setGuestName(data.data.name);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setStep("success");
+    } catch (error) {
+      console.error("Error:", error);
+      setStep("success");
+    }
+  };
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setStep("success");
+  const handleContinue = () => {
+    localStorage.setItem("guestId", guestId);
+    localStorage.setItem("guestName", guestName);
+    router.push("/profile");
   };
 
   const pageVariants = {
@@ -57,7 +82,7 @@ export default function Home() {
           {step === "loading" && <Loading />}
 
           {step === "success" && (
-            <SuccessProfile onContinue={() => router.push("/profile")} />
+            <SuccessProfile id={guestId} onContinue={handleContinue} />
           )}
         </motion.div>
       </AnimatePresence>
