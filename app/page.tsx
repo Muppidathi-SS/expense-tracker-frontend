@@ -35,8 +35,7 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(data.message || "Failed to create guest");
       }
-      console.log("Guest created:", data);
-      setGuestID(data.data.id);
+      setGuestID(data.data.guest_id);
       setGuestName(data.data.name);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setStep("success");
@@ -50,6 +49,12 @@ export default function Home() {
     localStorage.setItem("guestId", guestId);
     localStorage.setItem("guestName", guestName);
     setStep("layout");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("guestName");
+    localStorage.removeItem("guestId");
+    setStep("welcome");
   };
 
   const pageVariants = {
@@ -89,8 +94,8 @@ export default function Home() {
             <SuccessProfile id={guestId} onContinue={handleContinue} />
           )}
 
-          {step === "layout" && <Layout />} */}
-          {<Layout />}
+          {step === "layout" && <Layout onLogout={handleLogout} />} */}
+          <Layout onLogout={handleLogout} />
         </motion.div>
       </AnimatePresence>
     </div>

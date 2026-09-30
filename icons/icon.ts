@@ -8,6 +8,7 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export const Icons = {
   ExpenseIcon: ReceiptLongIcon,
@@ -21,4 +22,5 @@ export const Icons = {
   ProfileIcon: PersonAddIcon,
   MenuIcon: MenuIcon,
   CloseIcon: CloseIcon,
+  AddIcon: AddCircleIcon,
 };

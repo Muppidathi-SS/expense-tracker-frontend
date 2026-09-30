@@ -69,7 +69,15 @@ export default function Sidebar({
             </button>
           )}
         </div>
-        <nav className="space-y-2">
+        <button
+          className={`flex w-full cursor-pointer items-center rounded-xl py-3 text-md font-semibold transition-all duration-200 bg-[#1967D2] text-[#ffffff] shadow-md shadow-blue-600/25 ${
+            isCollapsed ? "justify-center px-0" : "gap-3 px-4"
+          } `}
+        >
+          <Icons.AddIcon />
+          Add Expense
+        </button>
+        <nav className="space-y-2 mt-10">
           {menuItems.map((item) => {
             const isActive = activeTab === item.id;
             const Icon = item.icon;

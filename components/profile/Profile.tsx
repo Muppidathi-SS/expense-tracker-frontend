@@ -1,20 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Icons } from "@/icons/icon";
 import LogoIcon from "@/icons/svgIcons/Logo";
 import { DotsLoader } from "@/ui/DotsLoader";
 import { useEffect, useState } from "react";
 
-export default function Profile() {
-  const router = useRouter();
+interface ProfileProps {
+  onLogout: () => void;
+}
+export default function Profile({ onLogout }: ProfileProps) {
   const [guestName, setGuestName] = useState("");
-
-  const handleLogout = () => {
-    localStorage.removeItem("guestName");
-    localStorage.removeItem("guestId");
-    router.push("/");
-  };
 
   useEffect(() => {
     const name = localStorage.getItem("guestName");
@@ -36,7 +31,7 @@ export default function Profile() {
           <DotsLoader />
         </div>
         <button
-          onClick={handleLogout}
+          onClick={onLogout}
           className="flex items-center justify-center gap-2 my-8 w-full max-w-xs cursor-pointer rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow transition-colors hover:bg-blue-700 sm:w-auto"
         >
           <Icons.LogoutIcon /> Sign Out

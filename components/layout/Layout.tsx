@@ -6,7 +6,10 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import Profile from "@/components/profile/Profile";
 import { Icons } from "@/icons/icon";
 
-export default function Layout() {
+interface LogoutProps {
+  onLogout: () => void;
+}
+export default function Layout({ onLogout }: LogoutProps) {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -70,7 +73,7 @@ export default function Layout() {
 
       <main className="min-w-0 flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
         {activeTab === "dashboard" && <Dashboard />}
-        {activeTab === "profile" && <Profile />}
+        {activeTab === "profile" && <Profile onLogout={onLogout} />}
       </main>
     </div>
   );
