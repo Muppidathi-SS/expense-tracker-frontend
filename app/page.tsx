@@ -8,8 +8,9 @@ import WelcomeCard from "@/components/welcome/Welcome";
 import GuestProfileForm from "@/components/guest-pofile-form/GuestProfileForm";
 import Loading from "@/ui/Loading";
 import SuccessProfile from "@/components/guest-pofile-form/SuccessProfile";
+import Layout from "@/components/layout/Layout";
 
-type Step = "welcome" | "profile" | "loading" | "success";
+type Step = "welcome" | "profile" | "loading" | "success" | "layout";
 
 export default function Home() {
   const [guestId, setGuestID] = useState("");
@@ -48,7 +49,7 @@ export default function Home() {
   const handleContinue = () => {
     localStorage.setItem("guestId", guestId);
     localStorage.setItem("guestName", guestName);
-    router.push("/profile");
+    setStep("layout");
   };
 
   const pageVariants = {
@@ -74,7 +75,7 @@ export default function Home() {
           transition={pageTransition}
           className="min-h-screen"
         >
-          {step === "welcome" && (
+          {/* {step === "welcome" && (
             <WelcomeCard onLogin={() => setStep("profile")} />
           )}
 
@@ -87,6 +88,9 @@ export default function Home() {
           {step === "success" && (
             <SuccessProfile id={guestId} onContinue={handleContinue} />
           )}
+
+          {step === "layout" && <Layout />} */}
+          {<Layout />}
         </motion.div>
       </AnimatePresence>
     </div>

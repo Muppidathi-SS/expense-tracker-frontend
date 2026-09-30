@@ -25,7 +25,7 @@ export default function Profile() {
 
   return (
     <>
-      <section className="flex justify-center items-center flex-col h-screen gap-3">
+      <section className="flex justify-center items-center flex-col min-h-[80vh] py-8 gap-3">
         <LogoIcon size={400} className="h-auto w-full max-w-100" />
         <div className="bg-purple-900 text-white flex justify-center items-center text-[54px] rounded-full p-2 h-25 w-25">
           {guestName.charAt(0).toUpperCase()}
