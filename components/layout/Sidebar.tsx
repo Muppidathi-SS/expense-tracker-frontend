@@ -5,7 +5,7 @@ import { Icons } from "@/icons/icon";
 import LogoIcon from "@/icons/svgIcons/Logo";
 import SecondaryLogoIcon from "@/icons/svgIcons/SecondaryLogo";
 
-export type TabType = "dashboard" | "profile";
+export type TabType = "dashboard" | "profile" | "add-expense";
 
 interface SidebarProps {
   activeTab: TabType;
@@ -70,12 +70,13 @@ export default function Sidebar({
           )}
         </div>
         <button
+          onClick={() => handleSelect("add-expense")}
           className={`flex w-full cursor-pointer items-center rounded-xl py-3 text-md font-semibold transition-all duration-200 bg-[#1967D2] text-[#ffffff] shadow-md shadow-blue-600/25 ${
             isCollapsed ? "justify-center px-0" : "gap-3 px-4"
           } `}
         >
-          <Icons.AddIcon />
-          Add Expense
+          <Icons.AddCircleIcon />
+          {!isCollapsed && "Add Expense"}
         </button>
         <nav className="space-y-2 mt-10">
           {menuItems.map((item) => {

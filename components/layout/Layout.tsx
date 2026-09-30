@@ -5,12 +5,13 @@ import Sidebar, { TabType } from "./Sidebar";
 import Dashboard from "@/components/dashboard/Dashboard";
 import Profile from "@/components/profile/Profile";
 import { Icons } from "@/icons/icon";
+import AddExpense from "../add-expence/AddExpence";
 
 interface LogoutProps {
   onLogout: () => void;
 }
 export default function Layout({ onLogout }: LogoutProps) {
-  const [activeTab, setActiveTab] = useState<TabType>("dashboard");
+  const [activeTab, setActiveTab] = useState<TabType>("add-expense");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
@@ -71,9 +72,10 @@ export default function Layout({ onLogout }: LogoutProps) {
         </div>
       )}
 
-      <main className="min-w-0 flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+      <main className="min-w-0 flex-1 p-4 bg-white overflow-y-auto">
         {activeTab === "dashboard" && <Dashboard />}
         {activeTab === "profile" && <Profile onLogout={onLogout} />}
+        {activeTab === "add-expense" && <AddExpense />}
       </main>
     </div>
   );
