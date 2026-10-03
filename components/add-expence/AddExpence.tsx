@@ -10,6 +10,7 @@ import { initialExpenseFormData } from "@/constants/constants";
 import { ExpenseFormData } from "@/types/types";
 import { DotsLoader } from "@/ui/DotsLoader";
 import { toast } from "react-toastify";
+import { tr } from "framer-motion/client";
 
 export default function AddExpense() {
   const [expenseFormData, setExpenseFormData] = useState<ExpenseFormData>(
@@ -32,6 +33,7 @@ export default function AddExpense() {
       expense_notes: expenseFormData.expense_notes,
     };
     try {
+      setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/add-expense`,
         {
