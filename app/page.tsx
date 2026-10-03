@@ -9,6 +9,8 @@ import GuestProfileForm from "@/components/guest-pofile-form/GuestProfileForm";
 import Loading from "@/ui/Loading";
 import SuccessProfile from "@/components/guest-pofile-form/SuccessProfile";
 import Layout from "@/components/layout/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Step = "welcome" | "profile" | "loading" | "success" | "layout";
 
@@ -95,6 +97,13 @@ export default function Home() {
           )}
 
           {step === "layout" && <Layout onLogout={handleLogout} />}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+          />
           {/* <Layout onLogout={handleLogout} /> */}
         </motion.div>
       </AnimatePresence>

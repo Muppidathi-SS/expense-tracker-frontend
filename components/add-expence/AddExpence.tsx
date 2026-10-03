@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { initialExpenseFormData } from "@/constants/constants";
 import { ExpenseFormData } from "@/types/types";
 import { DotsLoader } from "@/ui/DotsLoader";
+import { toast } from "react-toastify";
 
 export default function AddExpense() {
   const [expenseFormData, setExpenseFormData] = useState<ExpenseFormData>(
@@ -43,8 +44,11 @@ export default function AddExpense() {
       );
       const result = await response.json();
       setExpenseFormData(initialExpenseFormData);
+      if (result.success) toast.success("Expense added successfully!");
+      else toast.error("Failed to save");
     } catch (error) {
       console.error("Failed to save expense:", error);
+      toast.error("Failed to save");
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +56,6 @@ export default function AddExpense() {
 
   useEffect(() => {
     const id = localStorage.getItem("guestId");
-    console.log(id);
     setGuestId(id || "");
   }, []);
 
