@@ -80,7 +80,7 @@ export default function Home() {
           transition={pageTransition}
           className="min-h-screen"
         >
-          {/* {step === "welcome" && (
+          {step === "welcome" && (
             <WelcomeCard onLogin={() => setStep("profile")} />
           )}
 
@@ -94,8 +94,8 @@ export default function Home() {
             <SuccessProfile id={guestId} onContinue={handleContinue} />
           )}
 
-          {step === "layout" && <Layout onLogout={handleLogout} />} */}
-          <Layout onLogout={handleLogout} />
+          {step === "layout" && <Layout onLogout={handleLogout} />}
+          {/* <Layout onLogout={handleLogout} /> */}
         </motion.div>
       </AnimatePresence>
     </div>

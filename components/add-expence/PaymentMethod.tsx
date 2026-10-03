@@ -1,36 +1,20 @@
+import { PAYMENT_METHODS } from "@/constants/constants";
 import { Icons } from "@/icons/icon";
-import { useState } from "react";
+import { ExpenseFormData } from "@/types/types";
+import { useEffect, useState } from "react";
 
-const PAYMENT_METHODS = [
-  {
-    id: 1,
-    name: "UPI / GPay",
-    icon: Icons.UPIIcon,
-  },
-  {
-    id: 2,
-    name: "Credit Card",
-    icon: Icons.CreditCardIcon,
-  },
-  {
-    id: 3,
-    name: "Debit Card",
-    icon: Icons.DebitCardIcon,
-  },
-  {
-    id: 4,
-    name: "Cash",
-    icon: Icons.CashIcon,
-  },
-  {
-    id: 5,
-    name: " Net Banking",
-    icon: Icons.BankIcon,
-  },
-];
+interface PaymentMethodProps {
+  data: ExpenseFormData;
+  onChange: (payment_id: number) => void;
+}
+export default function PaymentMethod({ data, onChange }: PaymentMethodProps) {
+  const [selectedPaymentId, setSelectedPaymentId] = useState(
+    data.expense_payment_method,
+  );
 
-export default function PaymentMethod() {
-  const [selectedPaymentId, setSelectedPaymentId] = useState(0);
+  useEffect(() => {
+    setSelectedPaymentId(data.expense_payment_method);
+  }, [data.expense_payment_method]);
   return (
     <>
       <div className="mt-10">
@@ -43,7 +27,10 @@ export default function PaymentMethod() {
             return (
               <button
                 key={payment.id}
-                onClick={() => setSelectedPaymentId(payment.id)}
+                onClick={() => {
+                  setSelectedPaymentId(payment.id);
+                  onChange(payment.id);
+                }}
                 className={`flex justify-between items-center gap-3 px-4 py-2 rounded-3xl border border-gray-200 shadow cursor-pointer ${selectedPaymentId === payment.id ? "border-green-600 bg-green-50 text-green-600" : "bg-white"} `}
               >
                 <Icon />

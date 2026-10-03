@@ -1,81 +1,30 @@
+import { CATEGORIES, COLORS } from "@/constants/constants";
 import { Icons } from "@/icons/icon";
-import { useState } from "react";
+import { ExpenseFormData } from "@/types/types";
+import { useEffect, useState } from "react";
 
-const CATEGORIES = [
-  { id: 1, name: "Food & Dining", subName: "Default", icon: Icons.FoodIcon },
-  { id: 2, name: "Travel & Cab", subName: "Transport", icon: Icons.CarIcon },
-  { id: 3, name: "Shopping", subName: "Retail", icon: Icons.BagIcon },
-  {
-    id: 4,
-    name: "Bills & Utilities",
-    subName: "Recurring",
-    icon: Icons.BillIcon,
-  },
-  {
-    id: 5,
-    name: "Entertainment",
-    subName: "Leisure",
-    icon: Icons.EntertainmentIcon,
-  },
-  { id: 6, name: "Health", subName: "Medical", icon: Icons.HealthIcon },
-  { id: 7, name: "Tech & Tools", subName: "Software", icon: Icons.TechIcon },
-  { id: 8, name: "Others", subName: "General", icon: Icons.OthersIcon },
-];
+interface CategoriesTypeProps {
+  data: ExpenseFormData;
+  onChange: (category_id: number) => void;
+}
 
-const colors = [
-  {
-    id: 1,
-    bg: "#FCE8E6",
-    iconColor: "#EA4335",
-  },
-  {
-    id: 2,
-    bg: "#E8F0FE",
-    iconColor: "#005BBF",
-  },
-  {
-    id: 3,
-    bg: "#FEF7E0",
-    iconColor: "#F9AB00",
-  },
-  {
-    id: 4,
-    bg: "#E6F4EA",
-    iconColor: "#006E2C",
-  },
-  {
-    id: 5,
-    bg: "#F3E8FD",
-    iconColor: "#9334E6",
-  },
-  {
-    id: 6,
-    bg: "#FEEFE3",
-    iconColor: "#E8710A",
-  },
-  {
-    id: 7,
-    bg: "#E8EAED",
-    iconColor: "#414754",
-  },
-  {
-    id: 8,
-    bg: "#EFEDF1",
-    iconColor: "#727785",
-  },
-];
-
-export default function Categories() {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(0);
+export default function Categories({ data, onChange }: CategoriesTypeProps) {
+  const [selectedCategoryId, setSelectedCategoryId] = useState(
+    data.expense_category,
+  );
 
   const getColor = (category_id: number) => {
-    const color = colors.find((item) => item.id === category_id);
-
+    const color = COLORS.find((item) => item.id === category_id);
     return {
       bg: color?.iconColor ?? "#EA4335",
       iconColor: color?.bg ?? "#FCE8E6",
     };
   };
+
+  useEffect(() => {
+    setSelectedCategoryId(data.expense_category);
+  }, [data.expense_category]);
+
   return (
     <>
       <div className="mt-10">
@@ -91,11 +40,13 @@ export default function Categories() {
           {CATEGORIES.map((category) => {
             const Icon = category.icon;
             const { bg, iconColor } = getColor(category.id);
-            console.log(bg, " ", iconColor);
             return (
               <div
                 key={category.id}
-                onClick={() => setSelectedCategoryId(category.id)}
+                onClick={() => {
+                  setSelectedCategoryId(category.id);
+                  onChange(category.id);
+                }}
                 className={`w-full rounded-xl border p-3 mt-2 cursor-pointer ${selectedCategoryId === category.id ? "border-green-600 bg-green-50" : "border-[#C1C6D6]"} `}
               >
                 <div className="flex items-center justify-between">

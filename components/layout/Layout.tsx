@@ -42,7 +42,7 @@ export default function Layout({ onLogout }: LogoutProps) {
       </header>
 
       <aside
-        className={`hidden md:block shrink-0 border-r border-gray-200 bg-white min-h-screen sticky top-0 h-screen transition-all duration-300 ${
+        className={`hidden md:block fixed left-0 top-0 z-50 h-screen border-r border-gray-200 bg-white transition-all duration-300 ${
           isCollapsed ? "w-20" : "w-102"
         }`}
       >
@@ -72,7 +72,11 @@ export default function Layout({ onLogout }: LogoutProps) {
         </div>
       )}
 
-      <main className="min-w-0 flex-1 p-4 bg-white overflow-y-auto">
+      <main
+        className={`relative min-w-0 flex-1 p-4 bg-white overflow-y-auto transition-all duration-300 ${
+          isCollapsed ? "md:ml-20" : "md:ml-102"
+        }`}
+      >
         {activeTab === "dashboard" && <Dashboard />}
         {activeTab === "profile" && <Profile onLogout={onLogout} />}
         {activeTab === "add-expense" && <AddExpense />}
