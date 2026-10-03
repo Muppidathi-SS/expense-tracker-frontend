@@ -8,8 +8,11 @@ import WelcomeCard from "@/components/welcome/Welcome";
 import GuestProfileForm from "@/components/guest-pofile-form/GuestProfileForm";
 import Loading from "@/ui/Loading";
 import SuccessProfile from "@/components/guest-pofile-form/SuccessProfile";
+import Layout from "@/components/layout/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-type Step = "welcome" | "profile" | "loading" | "success";
+type Step = "welcome" | "profile" | "loading" | "success" | "layout";
 
 export default function Home() {
   const [guestId, setGuestID] = useState("");
@@ -34,8 +37,7 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(data.message || "Failed to create guest");
       }
-      console.log("Guest created:", data);
-      setGuestID(data.data.id);
+      setGuestID(data.data.guest_id);
       setGuestName(data.data.name);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       setStep("success");
@@ -48,7 +50,13 @@ export default function Home() {
   const handleContinue = () => {
     localStorage.setItem("guestId", guestId);
     localStorage.setItem("guestName", guestName);
-    router.push("/profile");
+    setStep("layout");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("guestName");
+    localStorage.removeItem("guestId");
+    setStep("welcome");
   };
 
   const pageVariants = {
@@ -87,6 +95,16 @@ export default function Home() {
           {step === "success" && (
             <SuccessProfile id={guestId} onContinue={handleContinue} />
           )}
+
+          {step === "layout" && <Layout onLogout={handleLogout} />}
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+          />
+          {/* <Layout onLogout={handleLogout} /> */}
         </motion.div>
       </AnimatePresence>
     </div>
